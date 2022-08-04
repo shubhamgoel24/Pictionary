@@ -1,0 +1,27 @@
+.canvasc{
+    width: 80vw;
+    height: 70vh;
+}
+.buttonDiv{
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
+    background-color: rgb(183, 183, 183);
+    border: solid black 1px;
+}
+.black{
+    background-color: black;
+}
+.red{
+    background-color: red;
+}
+.green{
+    background-color: #00ff00;
+}
+.blue{
+    background-color: blue;
+}
+.yellow{
+    background-color: yellow;
+}
