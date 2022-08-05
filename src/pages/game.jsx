@@ -1,7 +1,7 @@
 import React, { useRef, useContext,useEffect,useState } from 'react';
 import CanvasDraw from "react-canvas-draw";
 import {SocketContext} from '../socket';
-import '../styles/board.css'
+import '../styles/game.css'
 const Board = () => {
     const socket = useContext(SocketContext);
     const [color,setColor]=useState("#000000");

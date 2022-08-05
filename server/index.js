@@ -12,29 +12,15 @@ const db = require('./config/firebase');
 const session = require('express-session');
 const fs = require('fs');
 const server = http.createServer(app);
+app.use(cors());
 const io = require("socket.io")(server, 
     { 
     cors: {
         origin: "*"
     }
 });
-app.use(cors());
+require('./config/sockets')(io);
 app.use(cookieParser());
-io.on('connection', onConnection);
-let host = false;
-function onConnection(socket){
-    console.log("Connection received ",socket.id);
-    if(!host){
-        host = socket.id;
-        io.to(socket.id).emit('DrawOrNot');
-    }
-    
-    socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
-    socket.on('disconnect',()=>{
-        if(socket.id === host)
-            host = false
-    })
-}
 app.use(express.urlencoded({ extended: true }));
 app.use('/', require('./routes'));
 const port = 5000;

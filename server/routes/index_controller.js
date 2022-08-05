@@ -55,3 +55,23 @@ module.exports.nameroom= async function(req,res){
     }
     
 }
+
+// module.exports.joinroom= async function(req,res){
+//     try{
+//         const room=await rooms.doc(req.params.id).get();
+//         if(room){
+//             return res.status(200).json({
+//                 room : true,
+//                 message: req.params.id
+//             });
+//         }
+//     }catch(err){
+//         if(err){
+//             console.log(err);
+//         }
+//         return res.status(200).json({
+//             room : false,
+//             message: "Invalid Room Id"
+//         });
+//     }
+// }

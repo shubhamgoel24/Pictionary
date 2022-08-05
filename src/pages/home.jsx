@@ -1,4 +1,4 @@
-import React, { useRef, useContext,useEffect,useState } from 'react';
+import React, { useContext,useEffect } from 'react';
 import axios from "axios";
 import $ from 'jquery';
 import Noty from 'noty';
@@ -6,10 +6,18 @@ import "../../node_modules/noty/lib/noty.css";
 import "../../node_modules/noty/lib/themes/metroui.css"; 
 import '../styles/home.css'
 import {SocketContext} from '../socket';
+import { useSearchParams,useNavigate } from 'react-router-dom';
 
 const url = 'http://localhost:5000/nameroom';
-export default function Home() {
+export default function Home(props) {
   const socket = useContext(SocketContext);
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(searchParams.get('room'))
+    document.getElementById('room').value=searchParams.get('room');
+  });
 
   const getaroom = async (e) => {
     e.preventDefault();
@@ -29,17 +37,17 @@ export default function Home() {
             text: response.data.message,
             type: 'success',
             layout: 'topRight',
-            // timeout: 1500,
-            // container: '.custom-container'
+            timeout: 1500,
           }).show();
+          socket.emit('joinroom', response.data.message);
+          navigate("../room", { replace: true });
         }else{
           new Noty({
             theme: 'metroui',
             text: response.data.message,
             type: 'error',
             layout: 'topRight',
-            // timeout: 1500,
-            // container: '.custom-container'
+            timeout: 1500,
           }).show();
         }
         
@@ -59,7 +67,7 @@ export default function Home() {
 
             <div className='row justify-content-center'>
               <div className='col-8 text-center'>
-                <input type="text" name='name' placeholder='Name' required/>
+                <input type="text" name='name' id='name' placeholder='Name' required/>
               </div>
             </div>
             <div className='row justify-content-center'>
